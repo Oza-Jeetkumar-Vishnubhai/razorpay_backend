@@ -1,6 +1,6 @@
 // server/api/create-subscription.js (example using Express)
 const express = require("express");
-// const Razorpay = require("razorpay");
+const Razorpay = require("razorpay");
 const app = express();
 const port = 3000;
 require("dotenv").config();
