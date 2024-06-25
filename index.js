@@ -3,9 +3,12 @@ const express = require("express");
 const Razorpay = require("razorpay");
 const app = express();
 const port = 3000;
+const cors = require("cors"); 
+
 require("dotenv").config();
 // const router = express.Router();
 app.use(express.json());
+app.use(cors({credentials:true,origin:true}))
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
