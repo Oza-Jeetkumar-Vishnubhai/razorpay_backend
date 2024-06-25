@@ -57,6 +57,18 @@ app.post('/details',async(req,res)=>{
   }
 })
 
+app.post("/verification/", async (req, res) => {
+  const crypt = crypto.createHmac('sha256', razorpay.key_secret)
+  crypt.update(req.body.razorpay_payment_id+'|'+req.body.sid)
+  const digest = crypt.digest('hex');
+  if(digest === req.body.razorpay_signature){
+     res.json({status:"success"})
+  }else{
+    res.json({status:"fail"})
+  }
+})
+
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
