@@ -2,6 +2,7 @@
 const express = require("express");
 const Razorpay = require("razorpay");
 const app = express();
+const crypto = require('crypto')
 const port = 3000;
 const cors = require("cors"); 
 
@@ -45,6 +46,16 @@ app.get("/allPlans", async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+app.post('/details',async(req,res)=>{
+  const {id} = req.body;
+  try {
+    const details = await razorpay.subscriptions.fetch(id);
+    res.json(details)
+  } catch (error) {
+    res.status(500).send(error);
+  }
+})
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
