@@ -16,7 +16,7 @@ app.get("/",(req,res)=>{
   res.json({message:"Hello from express"})
 })
 
-app.post("/create-subscription", async (req, res) => {
+app.get("/create-subscription", async (req, res) => {
   console.log("hello");
   const { planId } = req.body;
   console.log(planId);
@@ -29,6 +29,16 @@ app.post("/create-subscription", async (req, res) => {
       start_at: Math.floor(Date.now() / 1000) + 60, // subscription start time
     });
     res.json(subscription);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+app.get("/allPlans", async (req, res) => {
+
+  try {
+    const plans = await razorpay.plans.all();
+    res.json(plans);
   } catch (error) {
     res.status(500).send(error);
   }
