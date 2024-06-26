@@ -21,14 +21,14 @@ app.get("/", (req, res) => {
 });
 
 app.post("/create-subscription", async (req, res) => {
-  const { planId } = req.body;
+  const { planId,total_count,customer_notify } = req.body;
   console.log(planId);
   console.log("req body : ", req.body);
   try {
     const subscription = await razorpay.subscriptions.create({
       plan_id: planId,
-      total_count: 1, // number of billing cycles
-      customer_notify: 1,
+      total_count: total_count, // number of billing cycles
+      customer_notify: customer_notify,
       // start_at: Math.floor(Date.now() / 1000) + 60, // subscription start time
     });
     res.json(subscription);
